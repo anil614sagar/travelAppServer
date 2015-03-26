@@ -1,2 +1,1 @@
-# travelAppServer
-My Travel App Server
+Skeleton project for Apigee-127

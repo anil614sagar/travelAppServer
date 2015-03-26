@@ -1,0 +1,110 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: My Travel
+# during dev, should point to your local machine
+host: 127.0.0.1:10010
+# basePath prefixes all resource paths
+basePath: /
+#
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+x-a127-config: {}
+x-a127-services: {}
+paths:
+  /countriesList:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: countriesList
+    x-a127-apply: {}
+    get:
+      description: Returns countries list
+      # used as the method name of the controller
+      operationId: getCountries
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/CountriesListResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+# complex objects have schema definitions
+definitions:
+  CountriesListResponse:
+    type: array
+    items:
+      type: object
+      properties:
+        alpha2Code:
+          type: string
+        alpha3Code:
+          type: string
+        altSpellings:
+          type: string
+        area:
+          type: integer
+        callingcode:
+          type: string
+        capital:
+          type: string
+        currency:
+          type: string
+        gini:
+          type: integer
+        isoNumericCode:
+          type: string
+        languages:
+          type: array
+          items:
+            type: string
+        latlang:
+          type: array
+          items:
+            type: integer
+        name:
+          type: string
+        nationality:
+          type: string
+        population:
+          type: integer
+        region:
+          type: string
+        relevance:
+          type: string
+        subregion:
+          type: string
+        timezones:
+          type: array
+          items:
+            type: string
+        topLevelDomain:
+          type: string
+        translations:
+          type: object
+          properties:
+            de:
+              type: string
+            en:
+              type: string
+            es:
+              type: string
+            fr:
+              type: string
+
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
